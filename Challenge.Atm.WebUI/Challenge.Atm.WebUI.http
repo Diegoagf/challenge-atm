@@ -1,0 +1,6 @@
+@Challenge.Atm.WebUI_HostAddress = http://localhost:5221
+
+GET {{Challenge.Atm.WebUI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
