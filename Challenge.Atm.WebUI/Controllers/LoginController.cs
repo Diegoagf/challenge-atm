@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using Challenge.Atm.Application.Requests;
+using MediatR;
+using Challenge.Atm.Application.Handlers;
+using FluentValidation;
 
 namespace Challenge.Atm.WebUI.Controllers
 {
@@ -7,12 +10,12 @@ namespace Challenge.Atm.WebUI.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        // GET: api/<LoginController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IMediator _mediator;
+        public LoginController(IMediator mediator) 
         {
-            return new string[] { "value1", "value2" };
+            _mediator = mediator;
         }
+ 
 
         // GET api/<LoginController>/5
         [HttpGet("{id}")]
@@ -23,20 +26,20 @@ namespace Challenge.Atm.WebUI.Controllers
 
         // POST api/<LoginController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
-        }
+            try
+            {
+                var result = _mediator.Send(new LoginCommand(loginRequest));
 
-        // PUT api/<LoginController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+                return Ok(result);
+            }
+            catch (ValidationException ex)
+            {
 
-        // DELETE api/<LoginController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                return BadRequest(ex.Errors.ToList());
+            }
+ 
         }
     }
 }
