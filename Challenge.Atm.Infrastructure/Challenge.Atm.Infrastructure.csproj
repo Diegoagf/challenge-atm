@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Challenge.Atm.Domain.EF\Challenge.Atm.Domain.EF.csproj" />
+  </ItemGroup>
+
 </Project>

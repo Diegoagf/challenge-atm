@@ -8,9 +8,9 @@ namespace Challenge.Atm.Application.Requests
 {
     public class LoginRequest
     {
-        public required string CardNumber { get; set; }
+        public string? CardNumber { get; set; }
 
-        public required int Pin { get; set; }
+        public int Pin { get; set; }
 
     }
 }

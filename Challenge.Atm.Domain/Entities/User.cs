@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Challenge.Atm.Domain.Entities
 {
-    internal class User
+    public class User: AuditableEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -10,27 +10,19 @@ namespace Challenge.Atm.Application.Services
     public class LoginService: ILoginService
     {
         private readonly IConfiguration _config;
-       
-        public LoginService(IConfiguration config)
+        private readonly IJwtService _jwtService;
+
+        public LoginService(IConfiguration config, IJwtService jwtService)
         {
             _config = config;
+            _jwtService = jwtService;
         }
 
         public Task<string> Login(string cardNumber, int pin, CancellationToken ct)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[]
-            {
-                new Claim("cardNumber", cardNumber),
-           new Claim(ClaimTypes.Name, "Diego")
-            };
-
-            var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddMinutes(15),
-                signingCredentials: credentials);
-
-            return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
+          
+           
+            return Task.FromResult (_jwtService.GenerateToken(cardNumber));
         }
     }
 }

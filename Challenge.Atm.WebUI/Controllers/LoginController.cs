@@ -26,11 +26,11 @@ namespace Challenge.Atm.WebUI.Controllers
 
         // POST api/<LoginController>
         [HttpPost]
-        public IActionResult Login([FromBody] LoginRequest loginRequest)
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             try
             {
-                var result = _mediator.Send(new LoginCommand(loginRequest));
+                var result = await _mediator.Send(new LoginCommand(loginRequest));
 
                 return Ok(result);
             }
