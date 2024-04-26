@@ -17,10 +17,21 @@ namespace Challenge.Atm.Infrastructure
         public static void AddDbContextInfraestructure( this IServiceCollection services, IConfiguration configuration) 
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-            b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                    b => b.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null)
+                        .MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
+                )
+            );
 
             services.AddTransient(typeof(IRepositoryAsync<>), typeof(MyRepositoryAsyc<>));
+        }
+
+        public static void AddSharedtInfraestructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddTransient<IDateTimeService, DateTimeService>();
         }
     }
 }

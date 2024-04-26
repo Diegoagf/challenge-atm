@@ -10,6 +10,8 @@ namespace Challenge.Atm.Domain.EF.DBContexts
         private readonly IDateTimeService _dateTime;
        
         public DbSet<User> Users { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeService dateTime): base(options) 
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;

@@ -1,4 +1,5 @@
-﻿using Challenge.Atm.Application.Requests;
+﻿using AutoMapper;
+using Challenge.Atm.Application.Requests;
 using Challenge.Atm.Domain.Interfaces;
 using MediatR;
 
@@ -18,10 +19,11 @@ namespace Challenge.Atm.Application.Handlers
     public class LoginCommandHandler: IRequestHandler<LoginCommand, string>
     {
        private readonly ILoginService _loginService;
-
-        public LoginCommandHandler(ILoginService loginService)
+       private readonly IMapper _mapper;
+        public LoginCommandHandler(ILoginService loginService, IMapper mapper)
         {
             _loginService = loginService;
+            _mapper = mapper;
         }
 
         public async Task<string> Handle(LoginCommand command, CancellationToken ct) 

@@ -4,6 +4,7 @@ using Challenge.Atm.Application.Validations;
 using Challenge.Atm.Domain.EF.DBContexts;
 using Challenge.Atm.Domain.EF.Repositories;
 using Challenge.Atm.Domain.Interfaces;
+using Challenge.Atm.Infrastructure;
 using Challenge.Atm.WebUI.Middlewares;
 using FluentValidation;
 using MediatR;
@@ -19,14 +20,16 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblyContaining<LoginCommandHandler>();
     cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 });
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+builder.Services.AddScoped<IJwtService, JwtService>();
 
+
+builder.Services.AddDbContextInfraestructure(builder.Configuration);
+builder.Services.AddSharedtInfraestructure(builder.Configuration);
 builder.Services.AddTransient(typeof(IRepositoryAsync<>), typeof(MyRepositoryAsyc<>));
 var app = builder.Build();
 

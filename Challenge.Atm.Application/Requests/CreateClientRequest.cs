@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Challenge.Atm.Domain.Entities
+namespace Challenge.Atm.Application.Requests
 {
-    public class User: AuditableEntity
+    public class CreateClientRequest
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
         public string Rol { get; set; }
-
-        public List<Card>? Cards { get; set; }   
     }
 }

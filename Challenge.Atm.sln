@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.Atm.Domain", "Cha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.Atm.Infrastructure", "Challenge.Atm.Infrastructure\Challenge.Atm.Infrastructure.csproj", "{CFE984A4-B5D4-4DA5-9B24-9CF31916A881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Atm.Domain.EF", "Challenge.Atm.Domain.EF\Challenge.Atm.Domain.EF.csproj", "{D89A3940-469D-45C9-9F1E-A1C070D585CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.Atm.Domain.EF", "Challenge.Atm.Domain.EF\Challenge.Atm.Domain.EF.csproj", "{D89A3940-469D-45C9-9F1E-A1C070D585CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

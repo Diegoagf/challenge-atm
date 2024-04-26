@@ -9,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace Challenge.Atm.Domain.EF.Mappings
 {
-    public class UserConfig: IEntityTypeConfiguration<User>
+    public class UserMapping: IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(x => x.CardId)
-                .IsRequired();
+            builder.HasKey(u => u.Id);
+            builder.Property(u => u.Name).IsRequired().HasMaxLength(100);
+            builder.Property(u => u.Rol).IsRequired().HasMaxLength(50);
 
-         builder.Property(x => x.Name)
-                .IsRequired();
         }
     }
 }
