@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Challenge.Atm.Application.Validations
 {
-    public class LoginCommandValidator: AbstractValidator<LoginCommand>
+    public class LoginCommandValidator: AbstractValidator<LoginUserCommand>
     {
         public LoginCommandValidator()
         {

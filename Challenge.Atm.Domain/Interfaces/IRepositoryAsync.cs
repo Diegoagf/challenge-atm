@@ -1,4 +1,5 @@
 ﻿using Ardalis.Specification;
+using Challenge.Atm.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Challenge.Atm.Domain.Interfaces
 
     public interface IReadRepositoryAsync<T> : IReadRepositoryBase<T> where T : class
     {
+    
     }
 }

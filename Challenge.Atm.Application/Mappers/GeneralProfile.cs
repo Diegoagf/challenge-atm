@@ -14,7 +14,9 @@ namespace Challenge.Atm.Application.Mappers
     {
         public GeneralProfile()
         {
-            CreateMap<CreateClientRequest, User>();
+            CreateMap<CreateUserRequest, User>();
+
+            CreateMap<CardRequest, Card>();
         }
     }
 }

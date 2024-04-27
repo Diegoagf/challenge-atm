@@ -1,5 +1,6 @@
 ﻿using Challenge.Atm.Domain.EF.DBContexts;
 using Challenge.Atm.Domain.EF.Repositories;
+using Challenge.Atm.Domain.Entities;
 using Challenge.Atm.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,13 +26,13 @@ namespace Challenge.Atm.Infrastructure
                         .MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
                 )
             );
-
             services.AddTransient(typeof(IRepositoryAsync<>), typeof(MyRepositoryAsyc<>));
+            services.AddTransient(typeof(IReadRepositoryAsync<>), typeof(MyReadRepositoryAsyc<>));
         }
 
         public static void AddSharedtInfraestructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IDateTimeService, DateTimeService>();
+            
         }
     }
 }
