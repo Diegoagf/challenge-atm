@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.Atm.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge.Atm.Domain.EF", "Challenge.Atm.Domain.EF\Challenge.Atm.Domain.EF.csproj", "{D89A3940-469D-45C9-9F1E-A1C070D585CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challege.Atm.DatabaseMigrator", "Challege.Atm.DatabaseMigrator\Challege.Atm.DatabaseMigrator.csproj", "{413F18D3-62BC-495A-9EB8-F17ACDD0010D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challege.Atm.DatabaseMigrator", "Challege.Atm.DatabaseMigrator\Challege.Atm.DatabaseMigrator.csproj", "{413F18D3-62BC-495A-9EB8-F17ACDD0010D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

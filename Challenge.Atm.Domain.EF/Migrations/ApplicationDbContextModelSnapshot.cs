@@ -60,54 +60,16 @@ namespace Challenge.Atm.Domain.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Pin")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Cards");
-                });
-
-            modelBuilder.Entity("Challenge.Atm.Domain.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Rol")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Transaction", b =>
@@ -145,13 +107,6 @@ namespace Challenge.Atm.Domain.EF.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("Card", b =>
-                {
-                    b.HasOne("Challenge.Atm.Domain.Entities.User", null)
-                        .WithMany("Cards")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Transaction", b =>
                 {
                     b.HasOne("Card", null)
@@ -162,11 +117,6 @@ namespace Challenge.Atm.Domain.EF.Migrations
             modelBuilder.Entity("Card", b =>
                 {
                     b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("Challenge.Atm.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Cards");
                 });
 #pragma warning restore 612, 618
         }

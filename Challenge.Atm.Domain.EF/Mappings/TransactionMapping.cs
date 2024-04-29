@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Challenge.Atm.Domain.EF.Mappings
 {
-    public class TransactionMap : IEntityTypeConfiguration<Transaction>
+    public class TransactionMapping : IEntityTypeConfiguration<Transaction>
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {

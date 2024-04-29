@@ -25,8 +25,7 @@ namespace Challenge.Atm.WebUI.Middlewares
             {
                 var response = context.Response;
                 response.ContentType = "application/json";
-                var responseModel = new CustomResponse() 
-                { Succeded = false, Message = e.Message};
+                var responseModel = new CustomResponse<string>(false, e.Message); 
                 switch (e)
                 {
 

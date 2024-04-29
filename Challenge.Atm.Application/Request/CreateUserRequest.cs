@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Challenge.Atm.Application.Requests
 {
-    public class CreateUserRequest
+    public class CreateNameRequest
     {
-        public string Name { get; set; }
-
-        public string Rol { get; set; }
-
-        public List<CardRequest>? Card { get; set; }
+        public List<CardRequest>? Cards { get; set; }
     }
 }

@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Challenge.Atm.Application.Requests
+namespace Challenge.Atm.Application.Request
 {
-    public class CardRequest
+    public abstract class CardBaseRequest
     {
-        public string AccountNumber { get; set; }
         public string CardNumber { get; set; }
-
         public int Pin { get; set; }
     }
 }

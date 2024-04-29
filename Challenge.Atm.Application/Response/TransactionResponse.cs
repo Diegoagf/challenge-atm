@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Challenge.Atm.Domain.Entities
+namespace Challenge.Atm.Application.Response
 {
-    public interface IAuditableEntity
+    public class TransactionResponse
     {
-        public int Id { get; set; }
+        public decimal Amount { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string LastModifiedBy { get; set; }
         public DateTime LastModified { get; set; }
     }
 }

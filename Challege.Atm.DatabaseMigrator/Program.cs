@@ -29,7 +29,7 @@ namespace DatabaseMigrationAndSeed
                 {
                     Log.Logger.Information("Aplicando Migraciones..");
                     dbContext.Database.Migrate();
-              
+                    Log.Logger.Information("Migraciones aplicadas con exito!");
                     SeedData.Initialize(dbContext);
                 }
                 catch (Exception ex)
@@ -54,73 +54,80 @@ namespace DatabaseMigrationAndSeed
             });
     }
 
-    // Clase para insertar datos de prueba en la base de datos
     public static class SeedData
     {
         public static void Initialize(ApplicationDbContext context)
         {
             // Verificar si ya existen datos en la base de datos
-            if (context.Users.Any() && context.Cards.Any())
+            if (context.Cards.Any())
             {
                 Log.Logger.Information("Ya existen datos en la base");
-                return;   // La base de datos ya contiene datos
+                return;   
             }
             Log.Logger.Information("Agregando Datos iniciales..");
+            var transactions1 = new List<Transaction>()
+            {
+                new()
+                {
+                      Amount = 50.55M,
+                     CreatedBy = "admin",
+                     LastModifiedBy = "admin",
+                },
+                new()
+                {
+                      Amount = 44.35M,
+                     CreatedBy = "admin",
+                     LastModifiedBy = "admin",
+                }
+            };
+            var transactions2 = new List<Transaction>()
+            {
+                new()
+                {
+                      Amount = 130.00M,
+                     CreatedBy = "admin",
+                     LastModifiedBy = "admin",
+                },
+                new()
+                {
+                      Amount = 100.00M,
+                     CreatedBy = "admin",
+                     LastModifiedBy = "admin",
+                }
+            };
             var card1 = new Card
             {
                 CardNumber = "4970110000000062",
+                OwnerName = "Juan Perez",
                 Pin = 1234,
                 AccountNumber = "01865281110786583688",
                 IsBlocked = false,
-                Balance = 0,
+                Balance = transactions1.Sum( x=> x.Amount),
                 CreatedBy = "admin",
-                CreatedAt = DateTime.UtcNow,
                 LastModifiedBy = "admin",
-                LastModified = DateTime.UtcNow
+                Transactions = transactions1
+                
             };
             var card2 = new Card
             {
-                CardNumber = "36230000000019",
-                Pin = 0001,
+                CardNumber = "3623000000001912",
+                OwnerName = "Maria Gonzlez",
+                Pin = 5678,
                 AccountNumber = "31831767132372861697",
                 IsBlocked = false,
-                Balance = 0,
+                Balance = transactions2.Sum(x => x.Amount),
                 CreatedBy = "admin",
                 CreatedAt = DateTime.UtcNow,
                 LastModifiedBy = "admin",
-                LastModified = DateTime.UtcNow
+                LastModified = DateTime.UtcNow,
+                Transactions = transactions2
             };
-            var users = new List<User>
-            {
-                new User
-                {
-                    Name = "Juan Perez",
-                    Rol = "Cliente",
-                    CreatedBy = "admin",
-                    CreatedAt = DateTime.UtcNow,
-                    LastModifiedBy = "admin",
-                    LastModified = DateTime.UtcNow,
-                    Cards = new List<Card>
-                    {
-                        card1
-                    }
-                },
-                new User
-                {
-                    Name = "Maria Gonzalez",
-                    Rol = "Administrador",
-                    CreatedBy = "admin",
-                    CreatedAt = DateTime.UtcNow,
-                    LastModifiedBy = "admin",
-                    LastModified = DateTime.UtcNow,
-                    Cards = new List<Card>
-                    {
-                        card2
-                    }
-                }
-            };
-            context.Users.AddRange(users);
+
+            context.Transactions.AddRange(transactions1);
+            context.Transactions.AddRange(transactions2);
+            context.Cards.AddRange(card1, card2);
             context.SaveChanges();
+            Log.Logger.Information("Se agregaron con exitos datos iniciales");
         }
     }
 
