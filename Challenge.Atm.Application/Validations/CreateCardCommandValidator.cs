@@ -1,4 +1,4 @@
-﻿using Challenge.Atm.Application.Handlers;
+﻿using Challenge.Atm.Application.Handlers.Commnads;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Challenge.Atm.Application.Validations
-{   
+{
     public class CreateCardCommandValdator: AbstractValidator<CreateCardCommand>
     {
         public CreateCardCommandValdator()

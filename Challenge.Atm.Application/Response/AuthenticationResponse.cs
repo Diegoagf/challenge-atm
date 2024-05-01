@@ -9,14 +9,17 @@ namespace Challenge.Atm.Application.Response
 {
     public class AuthenticationResponse
     {
-        public string CardNumber { get; set; }
+        public string Token { get; set; }
 
-        public string Email { get; set; }
+        public int ExpireInMinutes { get; set; }
 
-        public string JwToken { get; set; }
+        public AuthenticationResponse(string token, int expireInMinutes)
+        {
+            Token = token;
+            ExpireInMinutes = expireInMinutes;
+        }
 
-        [JsonIgnore]
-        public string RefreshToken { get; set; }
+       
 
     }
 }

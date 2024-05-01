@@ -1,4 +1,5 @@
 ﻿using Challenge.Atm.Application.Exceptions;
+using Challenge.Atm.Application.Response;
 using Challenge.Atm.Application.Wrappers;
 using FluentValidation;
 using System.Net;
@@ -32,6 +33,11 @@ namespace Challenge.Atm.WebUI.Middlewares
                     case CustomValidationException ex:
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         responseModel.Errors = ex.Errors;
+                        break;
+
+                    case ApiCustomException ex:
+                        response.StatusCode = (int)ex.statusCode;
+                        responseModel.Errors = new List<string>() { ex.Message };
                         break;
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;

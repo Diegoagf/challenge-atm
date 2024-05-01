@@ -1,4 +1,4 @@
-﻿using Challenge.Atm.Application.Handlers;
+﻿using Challenge.Atm.Application.Handlers.Commnads;
 using FluentValidation;
 using System.Text.RegularExpressions;
 

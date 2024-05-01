@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Challenge.Atm.Domain.Interfaces
+namespace Challenge.Atm.Application.Response
 {
-    public interface IDateTimeService
+    public class CardWithPinResponse: CardResponse
     {
-        DateTime NowUtc { get; }
+        public int Pin { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace Challenge.Atm.Domain.EF.Mappings
         {
             builder.HasKey(t => t.Id);
             builder.Property(u => u.Amount).IsRequired().HasColumnType("decimal(18,2)");
+            builder.Property(u => u.Type).IsRequired().HasConversion<string>();
 
         }
     }

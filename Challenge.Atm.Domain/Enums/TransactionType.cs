@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Challenge.Atm.Domain.Enums
 {
-    public enum Roles
+    public enum TransactionType
     {
-        Admin,
-        Basic
+        Extraction,
+        Deposit
     }
 }

@@ -8,7 +8,7 @@ public class CardSpecification : Specification<Card>
     {
         if (cardNumber != null)
         {
-            Query.Search(x => x.CardNumber, $"%{cardNumber}%");
+            Query.Where(c => c.CardNumber == cardNumber);
         }
 
     }

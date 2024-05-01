@@ -8,25 +8,25 @@ using Challenge.Atm.Domain.Interfaces;
 using MediatR;
 using System.Threading;
 
-namespace Challenge.Atm.Application.Handlers
+namespace Challenge.Atm.Application.Handlers.Queries
 {
 
-    public class GetAllCardsQuery : IRequest<PagedResponse<List<CardResponse>?>>
+    public class GetAllCardsQuery : IRequest<PagedResponse<List<CardWithPinResponse>?>>
     {
         public int PageNumber { get; set; }
-        public int PagedSize { get; set; }
+        public int PageSize { get; set; }
 
         public string? Name { get; set; }
 
         public GetAllCardsQuery(int pageNumber, int pagedSize, string? name)
         {
             PageNumber = pageNumber;
-            PagedSize = pagedSize;
+            PageSize = pagedSize;
             Name = name;
         }
     }
 
-    public class GetAllCardsQueryHandler : IRequestHandler<GetAllCardsQuery, PagedResponse<List<CardResponse>?>>
+    public class GetAllCardsQueryHandler : IRequestHandler<GetAllCardsQuery, PagedResponse<List<CardWithPinResponse>?>>
     {
 
         private readonly IReadRepositoryAsync<Card> _cardRepository;
@@ -34,16 +34,16 @@ namespace Challenge.Atm.Application.Handlers
         public GetAllCardsQueryHandler(IReadRepositoryAsync<Card> cardRepository, IMapper mapper)
         {
             _cardRepository = cardRepository;
-            _mapper =mapper;
+            _mapper = mapper;
         }
 
-        public async Task<PagedResponse<List<CardResponse>?>> Handle(GetAllCardsQuery request, CancellationToken ct) 
+        public async Task<PagedResponse<List<CardWithPinResponse>?>> Handle(GetAllCardsQuery request, CancellationToken ct)
         {
-            var users = await _cardRepository.ListAsync(new CardsPagedSpecification(request.PagedSize, request.PageNumber, request.Name), ct);
+            var cards = await _cardRepository.ListAsync(new CardsPagedSpecification(request.PageSize, request.PageNumber, request.Name), ct);
 
-            var userDto = _mapper.Map<List<CardResponse>>(users);
+            var cardsDto = _mapper.Map<List<CardWithPinResponse>>(cards);
 
-            return new PagedResponse<List<CardResponse>?>(userDto, request.PageNumber, request.PagedSize);
+            return new PagedResponse<List<CardWithPinResponse>?>(cardsDto, request.PageNumber, request.PageSize);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Challenge.Atm.Application.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

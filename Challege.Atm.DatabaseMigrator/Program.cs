@@ -1,5 +1,6 @@
 ﻿using Challenge.Atm.Domain.EF.DBContexts;
 using Challenge.Atm.Domain.Entities;
+using Challenge.Atm.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -45,7 +46,7 @@ namespace DatabaseMigrationAndSeed
                 // Configurar el contexto de la base de datos
                 services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                "Server=localhost,1433;Database=MyDatabase;User=sa;Password=Password;MultipleActiveResultSets=true;TrustServerCertificate=true",
+                "Server=localhost,1433;Database=AtmDB;User=sa;Password=Password;MultipleActiveResultSets=true;TrustServerCertificate=true",
                 options => options.EnableRetryOnFailure(
                     maxRetryCount: 5,  // Número máximo de intentos de conexión
                     maxRetryDelay: TimeSpan.FromSeconds(30),  // Retraso máximo entre intentos
@@ -65,19 +66,26 @@ namespace DatabaseMigrationAndSeed
                 return;   
             }
             Log.Logger.Information("Agregando Datos iniciales..");
+            var utcNow = DateTime.UtcNow;
             var transactions1 = new List<Transaction>()
             {
                 new()
                 {
                       Amount = 50.55M,
                      CreatedBy = "admin",
+                     Type = TransactionType.Deposit,
                      LastModifiedBy = "admin",
+                     CreatedAt = utcNow,
+                     LastModified = utcNow
                 },
                 new()
                 {
-                      Amount = 44.35M,
+                      Amount = 44.55M,
                      CreatedBy = "admin",
+                     Type = TransactionType.Extraction,
                      LastModifiedBy = "admin",
+                     CreatedAt = utcNow,
+                     LastModified = utcNow
                 }
             };
             var transactions2 = new List<Transaction>()
@@ -86,14 +94,29 @@ namespace DatabaseMigrationAndSeed
                 {
                       Amount = 130.00M,
                      CreatedBy = "admin",
+                     Type = TransactionType.Deposit,
                      LastModifiedBy = "admin",
+                     CreatedAt = utcNow,
+                     LastModified = utcNow
                 },
                 new()
                 {
                       Amount = 100.00M,
                      CreatedBy = "admin",
+                     Type = TransactionType.Extraction,
                      LastModifiedBy = "admin",
-                }
+                     CreatedAt = utcNow,
+                     LastModified = utcNow
+                },
+               new()
+                {
+                      Amount = 10000.00M,
+                     CreatedBy = "admin",
+                     Type = TransactionType.Deposit,
+                     LastModifiedBy = "admin",
+                     CreatedAt = utcNow,
+                     LastModified = utcNow
+                },
             };
             var card1 = new Card
             {
@@ -102,11 +125,13 @@ namespace DatabaseMigrationAndSeed
                 Pin = 1234,
                 AccountNumber = "01865281110786583688",
                 IsBlocked = false,
-                Balance = transactions1.Sum( x=> x.Amount),
+                Balance =transactions1.Sum(x => x.Type == TransactionType.Deposit ? x.Amount : -x.Amount),
                 CreatedBy = "admin",
                 LastModifiedBy = "admin",
-                Transactions = transactions1
-                
+                Transactions = transactions1,
+                CreatedAt = utcNow,
+                LastModified = utcNow
+
             };
             var card2 = new Card
             {
@@ -115,12 +140,12 @@ namespace DatabaseMigrationAndSeed
                 Pin = 5678,
                 AccountNumber = "31831767132372861697",
                 IsBlocked = false,
-                Balance = transactions2.Sum(x => x.Amount),
+                Balance = transactions2.Sum(x => x.Type == TransactionType.Deposit ? x.Amount : -x.Amount),
                 CreatedBy = "admin",
-                CreatedAt = DateTime.UtcNow,
                 LastModifiedBy = "admin",
-                LastModified = DateTime.UtcNow,
-                Transactions = transactions2
+                Transactions = transactions2,
+                CreatedAt = utcNow,
+                LastModified = utcNow
             };
 
             context.Transactions.AddRange(transactions1);

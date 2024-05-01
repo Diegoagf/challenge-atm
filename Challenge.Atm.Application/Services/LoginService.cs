@@ -6,6 +6,7 @@ using Microsoft.Extensions.ObjectPool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,25 +39,25 @@ namespace Challenge.Atm.Application.Services
             var result = await _readCardRepository.FirstOrDefaultAsync(new CardSpecification(card.CardNumber!));
             if (result == null)
             {
-                throw new ApiCustomException("The card with that number does not exist");
+                throw new ApiCustomException("The card with that number does not exist", HttpStatusCode.NotFound);
             }
 
             if (result.IsBlocked)
             {
-                throw new ApiCustomException("The card is Blocked");
+                throw new ApiCustomException("The card is Blocked", HttpStatusCode.Locked);
             }
             failedAttempts = _cache.Get<int>(card.CardNumber);
             if (failedAttempts >= 4)
             {
                 result.IsBlocked = true;
                 await _cardRepository.UpdateAsync(result);
-                throw new ApiCustomException("The card has been blocked, please contact your administrator");
+                throw new ApiCustomException("The card has been blocked, please contact your administrator", HttpStatusCode.Locked);
             }
             if (result.Pin != card.Pin)
             {
                 failedAttempts++;
                 _cache.Set(card.CardNumber, failedAttempts, DateTime.Now.AddMinutes(FailedDuration));
-                throw new ApiCustomException("Incorrect Pin");
+                throw new ApiCustomException("Incorrect Pin", HttpStatusCode.Forbidden);
             }
 
             return _jwtService.GenerateToken(result);

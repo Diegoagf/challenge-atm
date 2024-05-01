@@ -1,4 +1,6 @@
 ﻿using Challenge.Atm.Application.Handlers;
+using Challenge.Atm.Application.Handlers.Commnads;
+using Challenge.Atm.Application.Handlers.Queries;
 using Challenge.Atm.Application.Mappers;
 using Challenge.Atm.Application.Services;
 using Challenge.Atm.Application.Validations;
@@ -24,13 +26,14 @@ namespace Challenge.Atm.Application
 
             services.AddValidatorsFromAssemblyContaining<LoginCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<CreateCardCommandValdator>();
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssemblyContaining<CreateTransactionValidator>();
+            //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssemblyContaining<LoginCommand>();
                 cfg.RegisterServicesFromAssemblyContaining<CreateCardCommand>();
-                cfg.RegisterServicesFromAssemblyContaining<CreateMovementCommand>();
-                cfg.RegisterServicesFromAssemblyContaining<GetHistoryCardQuery>();
+                cfg.RegisterServicesFromAssemblyContaining<CreateTransactionCommand>();
+                cfg.RegisterServicesFromAssemblyContaining<GetHistoryTransactionsQuery>();
                 cfg.RegisterServicesFromAssemblyContaining<GetBalanceQuery>();
                 cfg.RegisterServicesFromAssemblyContaining<GetAllCardsQuery>();
                 //cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
@@ -38,6 +41,7 @@ namespace Challenge.Atm.Application
             });
             services.AddAutoMapper(typeof(CardMapper));
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ITransactionService, TransactionService>();
 
         }
     }

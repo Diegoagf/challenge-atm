@@ -8,15 +8,12 @@ using Challenge.Atm.Domain.Entities;
 using Challenge.Atm.Domain.Interfaces;
 using MediatR;
 
-namespace Challenge.Atm.Application.Handlers
+namespace Challenge.Atm.Application.Handlers.Queries
 {
 
     public class GetBalanceQuery : IRequest<CardResponse>
     {
 
-        public GetBalanceQuery()
-        {
-        }
     }
 
     public class GetBalanceQueryHandler : IRequestHandler<GetBalanceQuery, CardResponse>
@@ -28,15 +25,15 @@ namespace Challenge.Atm.Application.Handlers
         public GetBalanceQueryHandler(IReadRepositoryAsync<Card> cardRepository, IMapper mapper, ILoginService loginService)
         {
             _cardRepository = cardRepository;
-            _mapper =mapper;
+            _mapper = mapper;
             _loginService = loginService;
         }
 
-        public async Task<CardResponse> Handle(GetBalanceQuery command, CancellationToken ct) 
+        public async Task<CardResponse> Handle(GetBalanceQuery command, CancellationToken ct)
         {
-            (var cardNumber,_) =  _loginService.ValidateCard();
+            (var cardNumber, _) = _loginService.ValidateCard();
 
-            var card = await _cardRepository.FirstOrDefaultAsync(new CardSpecification(cardNumber), ct);
+            var card = await _cardRepository.FirstOrDefaultAsync(new CardWithTransactionsSpecification(cardNumber), ct);
 
             return _mapper.Map<CardResponse>(card);
 

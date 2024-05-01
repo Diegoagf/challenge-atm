@@ -1,4 +1,5 @@
-﻿using Challenge.Atm.Application.Wrappers;
+﻿using Challenge.Atm.Application.Response;
+using Challenge.Atm.Application.Wrappers;
 using Challenge.Atm.Domain.EF.DBContexts;
 using Challenge.Atm.Domain.EF.Repositories;
 using Challenge.Atm.Domain.Entities;
@@ -65,12 +66,12 @@ namespace Challenge.Atm.Infrastructure
                 };
                 o.Events = new JwtBearerEvents()
                 {
-                    OnAuthenticationFailed = c =>
+                    OnAuthenticationFailed = context =>
                     {
-                        c.NoResult();
-                        c.Response.StatusCode = 500;
-                        c.Response.ContentType = "application/json";
-                        return c.Response.WriteAsync(c.Exception.ToString());
+                        context.Response.StatusCode = 401;
+                        context.Response.ContentType = "application/json";
+                        var result = JsonSerializer.Serialize(new CustomResponse<string>(false, "Unauthorized"));
+                        return context.Response.WriteAsync(result);
                     },
                     OnChallenge = context =>
                     {

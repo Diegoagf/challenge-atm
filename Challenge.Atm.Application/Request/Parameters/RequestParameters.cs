@@ -9,16 +9,16 @@ namespace Challenge.Atm.Application.Request.Parameters
     public class RequestParameters
     {
         public int PageNumber { get; set; }
-        public int PagedSize { get; set; }
+        public int PageSize { get; set; }
         public RequestParameters()
         {
             PageNumber = 1;
-            PagedSize = 10;  
+            PageSize = 10;  
         }
-        public RequestParameters(int pageNumber, int pagedSize)
+        public RequestParameters(int pageNumber, int pageSize)
         {
            PageNumber = pageNumber <1 ? 1 : pageNumber;
-           PagedSize =pagedSize >10 ? 10 : pagedSize;    
+           PageSize =pageSize >10 ? 10 : pageSize;    
         }
     }
 }

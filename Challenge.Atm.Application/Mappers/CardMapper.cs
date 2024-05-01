@@ -17,17 +17,31 @@ namespace Challenge.Atm.Application.Mappers
         {
 
             CreateMap<CardRequest, Card>()
-             .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => false))
-             .ForMember(dest => dest.Balance, opt => opt.MapFrom(src => 0))
-             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.OwnerName))
-             .ForMember(dest => dest.LastModifiedBy, opt => opt.MapFrom(src => src.OwnerName));
+                 .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => false))
+                 .ForMember(dest => dest.Balance, opt => opt.MapFrom(src => 0))
+                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.OwnerName))
+                 .ForMember(dest => dest.LastModifiedBy, opt => opt.MapFrom(src => src.OwnerName));
+           
             CreateMap<LoginRequest, Card>();
 
 
-            CreateMap<Card, CardResponse>();
+            CreateMap<Card, CardResponse>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OwnerName))
+                .ForMember(dest => dest.LastTransactionAt, opt => opt.MapFrom(src => GetLastTransactionDate(src)));
 
-            CreateMap<Transaction, TransactionResponse>();
+            CreateMap<Card, CardWithPinResponse>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OwnerName))
+                .ForMember(dest => dest.LastTransactionAt, opt => opt.MapFrom(src => GetLastTransactionDate(src))); ;
 
+        }
+
+        public DateTime? GetLastTransactionDate(Card src)
+        {
+            if (src.Transactions != null && src.Transactions.Any())
+            {
+                return src.Transactions.Last().CreatedAt;
+            }      
+           return null;           
         }
     }
 }

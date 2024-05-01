@@ -7,11 +7,11 @@ public class CardsPagedSpecification : Specification<Card>
     public CardsPagedSpecification(int pageSize, int pageNumber,string name)
     {
         Query.Skip((pageNumber - 1)* pageSize)
-            .Take(pageNumber);
+            .Take(pageSize);
         
         if (name != null)
-        {
-            Query.Search(x => x.OwnerName, $"%{name}%");
+        { 
+            Query.Where(c => c.OwnerName == name);
         }
 
     }
