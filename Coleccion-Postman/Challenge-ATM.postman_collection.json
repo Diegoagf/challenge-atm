@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "0aa031e3-3578-4cb2-a73f-64f55b0c6ab6",
+		"name": "Challenge-ATM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12291371"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "GetAllCards",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_host}}/api/cards",
+							"host": [
+								"{{url_host}}"
+							],
+							"path": [
+								"api",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "Juan Perez",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ownerName\":\"Diego\",\r\n    \"accountNumber\":\"123231313\",\r\n    \"cardNumber\": \"3623000000001911\",\r\n    \"pin\": 1111\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_host}}/api/cards/new",
+							"host": [
+								"{{url_host}}"
+							],
+							"path": [
+								"api",
+								"cards",
+								"new"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jwtToken = pm.response.json().data.token;\r",
+							"\r",
+							"pm.environment.set(\"jwt\", jwtToken);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cardNumber\": \"4970110000000062\",\r\n  \"pin\": 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_host}}/api/card/login",
+					"host": [
+						"{{url_host}}"
+					],
+					"path": [
+						"api",
+						"card",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions History",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_host}}/api/transaction/history?PageSize=1&PageNumber=2",
+					"host": [
+						"{{url_host}}"
+					],
+					"path": [
+						"api",
+						"transaction",
+						"history"
+					],
+					"query": [
+						{
+							"key": "PageSize",
+							"value": "1"
+						},
+						{
+							"key": "PageNumber",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_host}}/api/card/balance",
+					"host": [
+						"{{url_host}}"
+					],
+					"path": [
+						"api",
+						"card",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\":60.5,\r\n    \"type\":\"Deposit\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_host}}/api/transaction",
+					"host": [
+						"{{url_host}}"
+					],
+					"path": [
+						"api",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_host",
+			"value": "http://localhost:5221",
+			"type": "string"
+		}
+	]
+}

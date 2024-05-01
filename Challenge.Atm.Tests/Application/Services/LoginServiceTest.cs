@@ -5,15 +5,11 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Challenge.Atm.Tests.Application.Services
 {
+
     public class LoginServiceTest
     {
         private LoginService _sut;
@@ -34,7 +30,7 @@ namespace Challenge.Atm.Tests.Application.Services
         {
 
             //Arrange
-            var card= _dataGenerator.Build<Card>()
+            var card = _dataGenerator.Build<Card>()
                 .Create();
 
             //Act

@@ -20,6 +20,7 @@ namespace Challenge.Atm.Domain.EF.Mappings
             builder.Property(c => c.IsBlocked).IsRequired();
             builder.Property(c => c.Balance).IsRequired().HasColumnType("decimal(18,2)");
 
+            builder.HasIndex(c => c.CardNumber);
 
         }
     }

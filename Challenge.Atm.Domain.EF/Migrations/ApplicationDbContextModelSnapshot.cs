@@ -69,6 +69,8 @@ namespace Challenge.Atm.Domain.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CardNumber");
+
                     b.ToTable("Cards");
                 });
 

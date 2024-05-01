@@ -41,11 +41,11 @@ namespace Challenge.Atm.Domain.EF.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CardId = table.Column<int>(type: "int", nullable: true)
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,6 +56,11 @@ namespace Challenge.Atm.Domain.EF.Migrations
                         principalTable: "Cards",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cards_CardNumber",
+                table: "Cards",
+                column: "CardNumber");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_CardId",

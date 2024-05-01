@@ -18,7 +18,7 @@ namespace Challenge.Atm.Domain.EF.DBContexts
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            foreach (var entry in ChangeTracker.Entries<IAuditableEntity>())
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
             {
                 switch (entry.State)
                 {

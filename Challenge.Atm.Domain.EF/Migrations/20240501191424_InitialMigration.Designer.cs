@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Challenge.Atm.Domain.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240430040011_InitialMigration")]
+    [Migration("20240501191424_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -71,6 +71,8 @@ namespace Challenge.Atm.Domain.EF.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CardNumber");
 
                     b.ToTable("Cards");
                 });
