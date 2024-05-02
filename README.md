@@ -54,6 +54,22 @@ Una vez que hayas completado la instalación y configuración, puedes ejecutar la 
 ```
 
 ## Pruebas
-Existe una coleccion de postman en el directorio ```Coleccion-Postman``` donde una vez importada se puede probar cada endpoint que expone la api, sin embargo se detalla un resumen de cada endpoint:
+El proyecto cuenta con una pequeña suite de pruebas unitarias , que se puede correr en el IDE de preferencia o mediante consola:
+```bash
+ cd challenge-atm
+ ```
+```bash
+ dotnet test
+```
 
-- Login 
+
+Finalmente existe una coleccion de postman en el directorio ```Coleccion-Postman``` donde una vez importada se puede probar cada endpoint que expone la api, sin embargo se detalla un resumen de cada endpoint:
+
+- __Login__: Dado un numero de tarjeta y Pin, este devolvera un JWT, el cual identifica ese usuario con esa tarjeta.( Nota: En los siguientes endpoints no hace falta enviar el numero de tarjeta, ya que se encuentra resuelto en el token).
+- __Transactions History__: Dado un JWT, este devolvera un historial de las transacciones de ese numero de tarjeta previamente logeado. 
+- __Get Balance__: Dado un JWT, este devolvera el saldo de ese numero de tarjeta previamente logeado.
+- __Create Transaction__: Dado un JWT,un monto y un tipo de transaccion( deposito o retiro) , creara una transaccion para el numero de tarjeta previamente logeado
+
+Ademas se cuenta con dos endpoints mas que no estan autenticados, para simplemente realizar pruebas con otras tarjetas
+- __GetAllCards__: Devolvera todas las tarjetas registradas en el sistema
+- __Create Card__: Dado los datos de la tarjetas, se creara una nueva tarjeta al sistema.

@@ -1,4 +1,5 @@
-﻿using Challenge.Atm.Domain.EF.DBContexts;
+﻿using AutoFixture;
+using Challenge.Atm.Domain.EF.DBContexts;
 using Challenge.Atm.Domain.Entities;
 using Challenge.Atm.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -60,7 +61,7 @@ namespace DatabaseMigrationAndSeed
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            // Verificar si ya existen datos en la base de datos
+            var fixture = new Fixture();
             if (context.Cards.Any())
             {
                 Log.Logger.Information("Ya existen datos en la base");
