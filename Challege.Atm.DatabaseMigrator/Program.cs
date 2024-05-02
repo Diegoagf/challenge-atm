@@ -1,6 +1,4 @@
-﻿using AutoFixture;
-using Challenge.Atm.Domain.EF.DBContexts;
-using Challenge.Atm.Domain.Entities;
+﻿using Challenge.Atm.Domain.EF.DBContexts;
 using Challenge.Atm.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 
 
-namespace DatabaseMigrationAndSeed
+namespace Challenge.Atm.DatabaseMigrator
 {
     class Program
     {
@@ -61,7 +59,6 @@ namespace DatabaseMigrationAndSeed
     {
         public static void Initialize(ApplicationDbContext context)
         {
-            var fixture = new Fixture();
             if (context.Cards.Any())
             {
                 Log.Logger.Information("Ya existen datos en la base");
