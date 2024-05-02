@@ -1,14 +1,11 @@
-﻿using Challenge.Atm.Domain.Interfaces;
-using Challenge.Atm.Domain.Settings;
+﻿using Challenge.Atm.Application.Exceptions;
+using Challenge.Atm.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Challenge.Atm.Infrastructure.Services
 {
@@ -67,8 +64,7 @@ namespace Challenge.Atm.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                // Manejar el error de validación aquí
-                throw;
+                throw new ApiCustomException(ex.Message, HttpStatusCode.Forbidden);
             }
         }
     }

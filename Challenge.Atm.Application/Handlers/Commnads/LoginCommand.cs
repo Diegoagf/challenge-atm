@@ -36,7 +36,7 @@ namespace Challenge.Atm.Application.Handlers.Commnads
         {
             var card = _mapper.Map<Card>(command.Request);
 
-            var result=  await _loginService.Login(card);
+            var result=  await _loginService.Login(card,ct);
             var jwt = new AuthenticationResponse(result, _config.GetValue<int>("Jwt:DurationInMinutes"));
             return new CustomResponse<AuthenticationResponse>("Login succeded", jwt);
         }

@@ -1,5 +1,4 @@
-﻿using Challenge.Atm.Application.Handlers;
-using Challenge.Atm.Application.Handlers.Commnads;
+﻿using Challenge.Atm.Application.Handlers.Commnads;
 using Challenge.Atm.Application.Handlers.Queries;
 using Challenge.Atm.Application.Mappers;
 using Challenge.Atm.Application.Services;
@@ -17,17 +16,16 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Challenge.Atm.Application
+namespace Challenge.Atm.Application.Installers
 {
     public static class ServiceExtensions
     {
-        public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration) 
+        public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
 
             services.AddValidatorsFromAssemblyContaining<LoginCommandValidator>();
-            services.AddValidatorsFromAssemblyContaining<CreateCardCommandValdator>();
+            services.AddValidatorsFromAssemblyContaining<CreateCardCommandValidator>();
             services.AddValidatorsFromAssemblyContaining<CreateTransactionValidator>();
-            //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssemblyContaining<LoginCommand>();
@@ -36,7 +34,6 @@ namespace Challenge.Atm.Application
                 cfg.RegisterServicesFromAssemblyContaining<GetHistoryTransactionsQuery>();
                 cfg.RegisterServicesFromAssemblyContaining<GetBalanceQuery>();
                 cfg.RegisterServicesFromAssemblyContaining<GetAllCardsQuery>();
-                //cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             });
             services.AddAutoMapper(typeof(CardMapper));

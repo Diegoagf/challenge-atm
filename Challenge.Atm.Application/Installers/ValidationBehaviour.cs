@@ -2,7 +2,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace Challenge.Atm.Application.Handlers
+namespace Challenge.Atm.Application.Installers
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

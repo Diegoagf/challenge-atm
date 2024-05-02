@@ -8,7 +8,7 @@ namespace Challenge.Atm.Domain.Interfaces
 {
     public interface ILoginService
     {
-       Task<string> Login(Card card);
+       Task<string> Login(Card card, CancellationToken ct);
 
         (string cardNumber, string OwnerName) ValidateCard();
     }

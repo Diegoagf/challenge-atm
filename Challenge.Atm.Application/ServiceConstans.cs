@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,8 @@ namespace Challenge.Atm.Application
     public static class ServiceConstans
     {
         public const string MessageSucceded = "The request was successful";
+
+
+        public const string RequestNullMessage = "The request cannot be null";
     }
 }

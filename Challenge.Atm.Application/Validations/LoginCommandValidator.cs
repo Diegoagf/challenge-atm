@@ -9,7 +9,7 @@ namespace Challenge.Atm.Application.Validations
         public LoginCommandValidator()
         {
             RuleFor(x => x.Request)
-            .NotNull().WithMessage("The login request cannot be null");
+            .NotNull().WithMessage(ServiceConstans.RequestNullMessage);
 
             RuleFor(x => x.Request)
             .SetValidator(new CardValidatorBase());

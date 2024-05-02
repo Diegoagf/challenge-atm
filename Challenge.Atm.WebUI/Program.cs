@@ -1,5 +1,3 @@
-using Challenge.Atm.Application;
-using Challenge.Atm.Infrastructure;
 using Challenge.Atm.WebUI.Middlewares;
 using FluentValidation;
 using MediatR;
@@ -10,6 +8,9 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Options;
+using Challenge.Atm.Application.Installers;
+using Challenge.Atm.Infrastructure.Installers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,10 +34,19 @@ builder.Services.AddApiVersioning(opt =>
 });
 builder.Services.AddSwaggerGen(c=>
 {
+
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Atm Web Api",
-        Version = "v1"
+        Version = "v1",
+        Description = "An ASP.NET Core Web API for challenge of metafar",
+        Contact = new OpenApiContact
+        {
+            Name = "Diego Gonzalez",
+            Email = "alfonzoferrer97@gmail.com"
+        }
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

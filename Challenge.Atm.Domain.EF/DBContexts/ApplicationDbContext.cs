@@ -38,46 +38,5 @@ namespace Challenge.Atm.Domain.EF.DBContexts
             modelBuilder.ApplyConfiguration(new CardMapping());
             modelBuilder.ApplyConfiguration(new TransactionMapping());
         }
-
-        //public void Seed()
-        //{
-        // var users = new List<User>
-        //    {
-        //        new User
-        //        {
-        //            Name = "Juan Perez",
-        //            Rol = "Cliente",
-        //            Cards= new List<Card>()
-        //            {
-        //                new()
-        //                {
-        //                    CardNumber = "4970110000000062",
-        //                    Pin = 1234,
-        //                    AccountNumber= "01865281110786583688",
-        //                    IsBlocked = false,
-        //                    Balance = 0,                                     
-        //                }
-        //            }
-        //        },
-        //        new User 
-        //        { 
-        //            Name = "Maria Gonzalez",
-        //            Rol = "Administrador" ,
-        //            Cards = new List<Card>()
-        //            {
-        //                new()
-        //                {
-        //                    CardNumber = "36230000000019",
-        //                    Pin = 0001,
-        //                    AccountNumber= "31831767132372861697",
-        //                    IsBlocked = false,
-        //                    Balance = 0,
-        //                }
-        //            }}
-        //    };
-
-        //  Users.AddRange(users);
-        //  SaveChangesAsync();
-        //}
     }
 }

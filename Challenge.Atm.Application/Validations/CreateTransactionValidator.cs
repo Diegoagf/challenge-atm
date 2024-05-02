@@ -14,7 +14,7 @@ namespace Challenge.Atm.Application.Validations
         public CreateTransactionValidator()
         {
             RuleFor(x => x.Request)
-                .NotNull().WithMessage("The request cannot be null");
+                .NotNull().WithMessage(ServiceConstans.RequestNullMessage);
 
             RuleFor(x => x.Request.Amount)
                     .NotEmpty().WithMessage("The amount is required")

@@ -33,7 +33,7 @@ namespace Challenge.Atm.Application.Services
         }
 
 
-        public async Task<string> Login(Card card)
+        public async Task<string> Login(Card card, CancellationToken ct)
         {
 
             var result = await _readCardRepository.FirstOrDefaultAsync(new CardSpecification(card.CardNumber!));

@@ -2,6 +2,7 @@
 using Challenge.Atm.Domain.Entities;
 using Challenge.Atm.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -13,17 +14,18 @@ namespace DatabaseMigrationAndSeed
     {
         static void Main(string[] args)
         {
-            // Crear un host de la aplicación
-            var host = CreateHostBuilder(args).Build();
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+            var host = CreateHostBuilder(args, configuration).Build();
 
             Log.Logger = new LoggerConfiguration()
            .WriteTo.Console()
            .CreateLogger();
 
-            // Ejecutar los servicios dentro del alcance del host
             using (var scope = host.Services.CreateScope())
             {
-                // Obtener el servicio del contexto de la base de datos
+    
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
                 try
@@ -40,17 +42,16 @@ namespace DatabaseMigrationAndSeed
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuration) =>
             Host.CreateDefaultBuilder(args).ConfigureServices((_, services) =>
             {
                 // Configurar el contexto de la base de datos
                 services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                "Server=localhost,1433;Database=AtmDB;User=sa;Password=Password;MultipleActiveResultSets=true;TrustServerCertificate=true",
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 options => options.EnableRetryOnFailure(
-                    maxRetryCount: 5,  // Número máximo de intentos de conexión
-                    maxRetryDelay: TimeSpan.FromSeconds(30),  // Retraso máximo entre intentos
-                    errorNumbersToAdd: null  // Números de error adicionales para los que se debe reintentar la conexión                   
+                    maxRetryCount: 5,  
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null                  
                 )));
             });
     }

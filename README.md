@@ -8,7 +8,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 - .NET 8 SDK: [Descargar e Instalar .NET 8 SDK](https://dotnet.microsoft.com/download)
 - Docker: [Descargar e Instalar Docker](https://www.docker.com/get-started)
 
-## Instalación y Configuración de la Base de Datos
+## Instalación y Configuración previa
 
 1. Clona este repositorio en tu máquina local:
     ```bash
@@ -25,7 +25,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
     docker-compose up -d
     ```
 
-## Configuración
+## Migracion de la base de Datos 
 
 Una vez realizado los pasos anteriores,y este ejecutandose el contenedor de Sql Server, Ejecutar la aplicacion de consola  `Challenge.Atm.DatabaseMigrator`:
 

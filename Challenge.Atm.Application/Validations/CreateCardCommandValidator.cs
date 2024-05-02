@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Challenge.Atm.Application.Validations
 {
-    public class CreateCardCommandValdator: AbstractValidator<CreateCardCommand>
+    public class CreateCardCommandValidator: AbstractValidator<CreateCardCommand>
     {
-        public CreateCardCommandValdator()
+        public CreateCardCommandValidator()
         {
             RuleFor(x => x.Request)
-            .NotNull().WithMessage("The request cannot be null");
+            .NotNull().WithMessage(ServiceConstans.RequestNullMessage);
 
             RuleFor(x => x.Request)
                 .SetValidator(new CardValidatorBase());
